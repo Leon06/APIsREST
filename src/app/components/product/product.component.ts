@@ -7,22 +7,31 @@ import { Product } from '../../models/product.model';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.scss']
 })
+
 export class ProductComponent {
 
-  @Input() product: Product = {
+  @Input() product: Product = { //Componente hijo y significa que la propiedad puede recibir su valor del Padre Conecta de padre a hijo
     id: '',
     price: 0,
-    image: '',
+    images: [],
     title: '',
-    category: '',
+    category: {
+      id : '',
+      name:'',
+    },
     description: ''
   };
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showProduct = new EventEmitter<string>();//solo necesitamos el id del producto
 
   constructor() { }
 
   onAddToCart() {
     this.addedProduct.emit(this.product);
+  }
+
+  onShowDetail(){
+    this.showProduct.emit(this.product.id)
   }
 
 }
